@@ -1,0 +1,15 @@
+name: Build Windows Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/_electron-build.yml
+    with:
+      platform: windows
+      publish_mode: never
+      upload_artifacts: true
+      node_version: "24"
