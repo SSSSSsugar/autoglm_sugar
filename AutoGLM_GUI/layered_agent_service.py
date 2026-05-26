@@ -9,7 +9,7 @@ from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
-from agents import Agent, Runner, SQLiteSession, function_tool
+from agents import Agent, ModelSettings, Runner, SQLiteSession, function_tool
 from agents.models.openai_chatcompletions import OpenAIChatCompletionsModel
 from openai import AsyncOpenAI
 
@@ -305,11 +305,21 @@ def _create_planner_agent(client: AsyncOpenAI) -> Agent[Any]:
         openai_client=client,
     )
 
+    # DeepSeek Thinking Mode 会在响应中附加 reasoning_content，
+    # 但 openai-agents SDK 不会把它写回对话历史，
+    # 导致下一轮请求时 DeepSeek 报错要求必须传回 reasoning_content。
+    # 通过 extra_body 强制关闭 Thinking Mode 来规避此问题。
+    model_settings = ModelSettings()
+    if "deepseek" in planner_model.lower():
+        model_settings = ModelSettings(extra_body={"thinking": {"type": "disabled"}})
+        logger.info("[LayeredAgent] DeepSeek model detected, disabling thinking mode")
+
     return Agent(
         name="Planner",
         instructions=PLANNER_INSTRUCTIONS,
         model=model,
         tools=[list_devices, chat],
+        model_settings=model_settings,
     )
 
 

@@ -254,6 +254,10 @@ export const zh = {
       name: 'ModelScope',
       description: '魔搭社区提供的 API 服务',
     },
+    deepseek: {
+      name: 'DeepSeek',
+      description: 'DeepSeek 官方 API 服务',
+    },
     custom: {
       name: '自建服务',
       description: 'vLLM / SGLang 等自建服务',

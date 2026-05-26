@@ -140,6 +140,14 @@ const DECISION_PRESETS = [
     apiKeyUrl: 'https://www.modelscope.cn/my/myaccesstoken',
   },
   {
+    name: 'deepseek',
+    config: {
+      decision_base_url: 'https://api.deepseek.com',
+      decision_model_name: 'deepseek-v4-flash',
+    },
+    apiKeyUrl: 'https://platform.deepseek.com/api_keys',
+  },
+  {
     name: 'custom',
     config: {
       decision_base_url: '',

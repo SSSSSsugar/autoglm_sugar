@@ -259,6 +259,10 @@ export const en = {
       name: 'ModelScope',
       description: 'API service provided by ModelScope community',
     },
+    deepseek: {
+      name: 'DeepSeek',
+      description: 'DeepSeek official API service',
+    },
     custom: {
       name: 'Custom Service',
       description: 'Self-hosted vLLM / SGLang services',
